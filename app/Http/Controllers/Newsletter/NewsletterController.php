@@ -21,18 +21,15 @@ class NewsletterController extends Controller
         $this->user = $user;
     }
 
-    public function send_emails()
+    public function all_emails()
     {
         try {
             // Get emails from database
-            $user = $this->user->where('email', 'onakoyak@gmail.com')->first();
-            
-            // Dispatch the queue
-            SendEmail::dispatch($user->email, $user->name);
+            $users = $this->user->all();
 
             $response = response()->json([
                 'status' => 200,
-                'message' => 'Email sent to subscribers'
+                'data' => $users
             ], 200);
         } catch (Exception $e) {
             Log::emergency("File: " . $e->getFile() . PHP_EOL .
