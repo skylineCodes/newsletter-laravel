@@ -27,8 +27,9 @@ class Kernel extends ConsoleKernel
         date_default_timezone_set('Africa/Lagos');
         $date = strtotime("second Tuesday of " . "M");
         $day = gmdate('d', $date);
+        $month = gmdate('m', $date);
 
-        $schedule->command('send:newsletter')->monthlyOn($day, '10:00');
+        $schedule->command('send:newsletter')->cron('0 * '. $day .' '. $month .' *');
     }
 
     /**
